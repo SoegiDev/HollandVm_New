@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PaymentGateway from "../../assets/img/payment-gateway.png";
 import qris__template from "../../assets/img/template-qris.png";
-import { useQrious } from "react-qrious";
+import { QRious, useQrious } from "react-qrious";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import loading from "../../assets/img/loadingpng.png";
 import { useRef } from "react";
@@ -13,7 +13,7 @@ const ModalPayment = (props) => {
     cancelTransaction,
     setOpenModalPayment,
     checkPayment,
-    contentQr,
+    contentPaymnetQR,
   } = props;
   const minuteSeconds = 120;
   const getTimeSeconds = (time) => (minuteSeconds - time) | 0;
@@ -32,11 +32,12 @@ const ModalPayment = (props) => {
   const [isLoading, setLoading] = useState(true);
   const [ishabis, setHabis] = useState(false);
   useEffect(() => {
-    if (contentQr !== null) {
+    if (contentPaymnetQR !== null) {
       setLoading(false);
-      setValue(contentQr);
+      setValue(contentPaymnetQR);
     }
-  }, [contentQr]);
+  }, [contentPaymnetQR]);
+  console.log("BARCODE ", dataUrl, value);
   const handleQRModel = ({ status }) => {
     //setChoice(false);
     cancelTransaction();
@@ -99,10 +100,9 @@ const ModalPayment = (props) => {
                         />
                       </span>
                     ) : (
-                      <img
-                        src={dataUrl}
-                        alt="Landing Page"
-                        className="h-96 w-96 content-center"
+                      <QRious
+                        value={value}
+                        className="h-96 w-96 mt-8 items-center"
                       />
                     )}
                   </span>
