@@ -25,12 +25,10 @@ const Vending = () => {
 
   const [itemSlots, setItemSlots] = useState([]);
   const [itemBannersImage, setItemBannersImage] = useState([]);
-  const [isSyncSlot, setSyncSlot] = useState(false);
   //ITEMCART
   const [subTotal, setsubTotal] = useState(0);
   const [TotalItemCart, setTotalItemCart] = useState(0);
   const [transactions, setTransaction] = useState([]);
-
   const [isoverlay, setOverlay] = useState(false);
 
   // MODAL
@@ -96,21 +94,47 @@ const Vending = () => {
   // };
 
   useEffect(() => {
-    console.log("Add transaction");
-  }, [transactions]);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     setOverlay(true);
-  //     crud.getDataBannersImage().then((res) => {
-  //       console.log(res);
-  //       if (res.message === "No Data") {
-  //         console.log("DATA BANNERS KOSONG");
-  //       } else {
-  //         setItemBannersImage(res.results.data);
-  //         fetchData2();
-  //       }
-  //     });
-  //   };
+    const getDataBannerLocal = async () => {
+      if (itemBannersImage.length === 0) {
+        setOverlay(true);
+        crud.getDataBannersImage().then((res) => {
+          console.log(res);
+          if (res.message === "No Data") {
+            setOverlay(false);
+            console.log("DATA BANNERS KOSONG");
+          } else {
+            console.log("DATA BANNER", res);
+            setOverlay(false);
+            console.log("OVERLAY DONE");
+            setItemBannersImage(false);
+          }
+        });
+      } else {
+        console.log("Data Image sudah ada");
+        console.log(itemBannersImage);
+      }
+    };
+    const getDataSlotsLocal = async () => {
+      if (itemSlots.length === 0) {
+        crud.getDataSlots().then((res) => {
+          console.log("Running Get SLOTS");
+          console.log(res);
+          if (res.message === "No Data") {
+            console.log("Data SLots Local Kosong");
+          } else {
+            console.log("Set Slot");
+            setOverlay(false);
+            setItemSlots(res.results.data);
+          }
+        });
+      } else {
+        console.log("Data Slot sudah ada");
+        console.log(itemBannersImage);
+      }
+    };
+    getDataBannerLocal();
+    getDataSlotsLocal();
+  });
   //   const fetchData2 = async () => {
   //     crud.getDataSlots().then((res) => {
   //       console.log("Running Get SLOTS");
@@ -316,7 +340,7 @@ const Vending = () => {
           <TopHeader />
           <Header />
           <RunningText />
-          {isSyncSlot && (
+          {itemSlots && (
             <Content slots={itemSlots} addCart={addTransaction}></Content>
           )}
           <ContentFooter
