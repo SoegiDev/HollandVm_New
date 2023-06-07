@@ -357,7 +357,7 @@ const Vending = () => {
           <TopHeader />
           <Header />
           <RunningText />
-          {itemSlots && (
+          {itemSlots.length > 0 && (
             <Content slots={itemSlots} addCart={addTransaction}></Content>
           )}
           <ContentFooter
