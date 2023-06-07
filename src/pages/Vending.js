@@ -162,10 +162,17 @@ const Vending = () => {
       if (item.onhand === 0) {
         console.log("STOCK SUDAH ABIS");
         Swal.fire({
-          title: `Stock Product ${item.name_produk} Sudah tidak ada`,
-          text: "Silahkan Pilih Produk lainnya",
-          icon: "success",
-          timer: 3000,
+          title: `Stock ${item.name_produk} Sudah Habis`,
+          width: 300,
+          height: 400,
+          padding: "3em",
+          color: "#716add",
+          background: "#fff",
+          backdrop: `
+            rgba(0,0,123,0.4)
+            left top
+            no-repeat
+          `,
         });
       } else {
         setTransaction([
@@ -202,9 +209,19 @@ const Vending = () => {
         if (stock <= 0) {
           console.log("STOCK SUDAH ABIS");
           Swal.fire({
-            title: `Stock Product ${item.name_produk} Sudah tidak ada`,
-            text: "Silahkan Pilih Produk lainnya",
-            icon: "success",
+            title: `Stock ${item.name_produk} Sudah Habis`,
+            width: 400,
+            heightAuto: 300,
+            padding: "3em",
+            color: "#716add",
+            background: "#fff url(/images/trees.png)",
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url("/images/nyan-cat.gif")
+              left top
+              no-repeat
+            `,
+            allowOutsideClick: false,
             timer: 3000,
           });
         } else {
