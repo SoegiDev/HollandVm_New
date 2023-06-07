@@ -18,6 +18,8 @@ const delay = 5000;
 
 const ScreenSaver = (props) => {
   const { stay, images } = props;
+  console.log("Banne", images);
+  console.log("Screensaver Active", props);
   const [imagesBanners, setImagesBanners] = useState(images);
   const [index, setIndex] = useState(0);
   const timeoutRef = useRef(null);

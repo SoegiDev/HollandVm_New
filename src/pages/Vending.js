@@ -3,7 +3,7 @@ import useIdle from "../hooks/useIdleTimeout";
 import ScreenSaver from "../components/ScreenSaver";
 import Loading from "../components/modal/Loading";
 import crud from "../function/getDb";
-import EngineVM from "../function/vmEngine";
+
 import Content from "../components/Content";
 import TopHeader from "../components/TopHeader";
 import Header from "../components/Header";
@@ -11,23 +11,21 @@ import RunningText from "../components/RunningText";
 import ContentFooter from "../components/ContentFooter";
 import Footer from "../components/Footer";
 import Swal from "sweetalert2";
-import { formatDate } from "../model/DateFormat";
-import VMINIT from "../services/init";
+// import { formatDate } from "../model/DateFormat";
+// import VMINIT from "../services/init";
+// import EngineVM from "../function/vmEngine";
+// var CryptoJS = require("crypto-js");
 import { Transition } from "@headlessui/react";
 import ModalCart from "../components/modal/ModalCart";
 import ModalPayment from "../components/modal/ModalPayment";
 import ModalRefund from "../components/modal/ModalRefund";
-var CryptoJS = require("crypto-js");
 const Vending = () => {
   const [screensaverActive, setScreensaverActive] = useState(false);
-  const [isloading, setLoading] = useState(false);
+  const [isloading] = useState(false);
 
   const [itemSlots, setItemSlots] = useState([]);
   const [itemBannersImage, setItemBannersImage] = useState([]);
   const [isSyncSlot, setSyncSlot] = useState(false);
-  const [isSyncBanners, setSynBanners] = useState(false);
-  const [isUpdateData, setUpdateData] = useState(false);
-
   //ITEMCART
   const [subTotal, setsubTotal] = useState(0);
   const [TotalItemCart, setTotalItemCart] = useState(0);
@@ -37,53 +35,69 @@ const Vending = () => {
 
   // MODAL
   const [openModalCart, setopenModalCart] = useState(false);
-  const [openModalPayment, setopenModalPayment] = useState(false);
-  const [openModalRefund, setOpenModalRefund] = useState(false);
+  const [openModalPayment] = useState(false);
+  const [openModalRefund] = useState(false);
   // PAYMENT
-  const [contentPaymnetQR, setContentPaymentQR] = useState(false);
+  const [contentPaymnetQR] = useState(false);
 
-  let toModalPayment;
-  let toModalCart;
-  let toModalRefund;
+  // let toModalPayment;
+  // let toModalCart;
+  // let toModalRefund;
+  // let timerId;
+  // let timerId2;
+  const [message, setmessage] = useState("Event");
+
   const handleIdle = () => {
     setScreensaverActive(true);
   };
   const stay = () => {
     setScreensaverActive(false);
-    idleTimer.reset();
   };
-  const { idleTimer } = useIdle({ onIdle: handleIdle, idleTime: 100 });
-
-  let timerId;
-  let timerId2;
-
-  const logOutUser = () => {
-    console.log("LOGs");
-  };
-  const startTimer = () => {
-    if (timerId) clearTimeout(timerId);
-    timerId = setTimeout(logOutUser, 3000);
-  };
-
-  const stopTimer = () => {
-    if (timerId) {
-      clearTimeout(timerId);
-    }
-  };
-
-  const setLoad = () => {
-    console.log("Set Overlay");
-    setLoading(true);
+  const refreshPage = () => {
+    console.log("REFRESH DATA");
     setOverlay(true);
-    if (timerId2) clearTimeout(timerId2);
-    console.log("MUlai Oeveraly");
-    timerId2 = setTimeout(() => {
+    setTimeout(() => {
+      window.location.reload(true);
       setOverlay(false);
-      console.log("Selesai Overlay");
-      setLoading(false);
     }, 3000);
   };
+  const { idleTimer } = useIdle({ onIdle: handleIdle, idleTime: 2000 });
 
+  const { idleRefreshData } = useIdle({
+    onIdle: refreshPage,
+    idleTime: 60,
+  });
+
+  // const logOutUser = () => {
+  //   console.log("LOGs");
+  // };
+  // const startTimer = () => {
+  //   if (timerId) clearTimeout(timerId);
+  //   timerId = setTimeout(logOutUser, 3000);
+  // };
+
+  // const stopTimer = () => {
+  //   if (timerId) {
+  //     clearTimeout(timerId);
+  //   }
+  // };
+
+  // const setLoad = () => {
+  //   console.log("Set Overlay");
+  //   setLoading(true);
+  //   setOverlay(true);
+  //   if (timerId2) clearTimeout(timerId2);
+  //   console.log("MUlai Oeveraly");
+  //   timerId2 = setTimeout(() => {
+  //     setOverlay(false);
+  //     console.log("Selesai Overlay");
+  //     setLoading(false);
+  //   }, 3000);
+  // };
+
+  useEffect(() => {
+    console.log("Add transaction");
+  }, [transactions]);
   useEffect(() => {
     const fetchData = async () => {
       setOverlay(true);

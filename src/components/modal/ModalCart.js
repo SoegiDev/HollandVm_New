@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useRef } from "react";
 import { Tooltip } from "react-tooltip";
 const numberFormat = (value) =>
   new Intl.NumberFormat("id-ID", {
@@ -8,9 +7,6 @@ const numberFormat = (value) =>
     minimumFractionDigits: 0,
   }).format(value);
 const ModalCart = (props) => {
-  const timer = useRef(null);
-  const [openPayment, setOpenPayment] = useState(false);
-
   const {
     transactions,
     addTransaction,
@@ -34,6 +30,7 @@ const ModalCart = (props) => {
   const handleBatalkanKeranjang = (props) => {
     handleModalConfirm(props);
   };
+  console.log(totalItemCart);
 
   return (
     <div
@@ -113,77 +110,16 @@ const ModalCart = (props) => {
                       <hr className="border-y bg-hollandtints-800 w-2/3 mr-2"></hr>
                     </span>
                   </div>
-                  {openPayment ? (
-                    <button className="w-64 ml-4 mr-2 mt-2 mb-4 text-white border-2 border-slate-500 transition duration-500 rounded-2xl ">
-                      <span className="flex justify-center p-2">
-                        <svg
-                          className="animate-spin h-8 w-8 text-hollandtints-800"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M12 1V5"
-                            stroke="#1C1C1C"
-                            strokeWidth="1.7"
-                            strokeLinecap="round"
-                          />
-                          <path
-                            d="M19.4246 18.9246L16.5961 16.0962"
-                            stroke="#e4543a"
-                            strokeWidth="1.7"
-                            strokeLinecap="round"
-                          />
-                          <path
-                            d="M22.5 11.5L18.5 11.5"
-                            stroke="#e4543a"
-                            strokeWidth="1.7"
-                            strokeLinecap="round"
-                          />
-                          <path
-                            d="M12 18V22"
-                            stroke="#e4543a"
-                            strokeWidth="1.7"
-                            strokeLinecap="round"
-                          />
-                          <path
-                            d="M7.40381 6.90381L4.57538 4.07538"
-                            stroke="#e4543a"
-                            strokeWidth="1.7"
-                            strokeLinecap="round"
-                          />
-                          <path
-                            d="M5.5 11.5L1.5 11.5"
-                            stroke="#e4543a"
-                            strokeWidth="1.7"
-                            strokeLinecap="round"
-                          />
-                          <path
-                            d="M7.40381 16.0962L4.57538 18.9246"
-                            stroke="#e4543a"
-                            strokeWidth="1.7"
-                            strokeLinecap="round"
-                          />
-                        </svg>
-                        <p className="text-xl font-serif text-hollandtints-800">
-                          Processing...
-                        </p>
-                      </span>
-                    </button>
-                  ) : (
-                    <button
-                      className={`w-64 ml-4 mr-2 mt-2 mb-4 bg-hollandtints-800 text-white transition duration-500 rounded-2xl ${
-                        subTotal === 0 && "hidden"
-                      }`}
-                      onClick={() => handleModalBeli()}
-                    >
-                      <span className="flex justify-center p-2">
-                        <h3 className="text-3xl font-serif items-center">
-                          Beli
-                        </h3>
-                      </span>
-                    </button>
-                  )}
+                  <button
+                    className={`w-64 ml-4 mr-2 mt-2 mb-4 bg-hollandtints-800 text-white transition duration-500 rounded-2xl ${
+                      subTotal === 0 && "hidden"
+                    }`}
+                    onClick={() => handleModalBeli()}
+                  >
+                    <span className="flex justify-center p-2">
+                      <h3 className="text-3xl font-serif items-center">Beli</h3>
+                    </span>
+                  </button>
                 </div>
               </div>
             </div>
