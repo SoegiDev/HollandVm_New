@@ -98,37 +98,37 @@ const Vending = () => {
   useEffect(() => {
     console.log("Add transaction");
   }, [transactions]);
-  useEffect(() => {
-    const fetchData = async () => {
-      setOverlay(true);
-      crud.getDataBannersImage().then((res) => {
-        console.log(res);
-        if (res.message === "No Data") {
-          console.log("DATA BANNERS KOSONG");
-        } else {
-          setItemBannersImage(res.results.data);
-          fetchData2();
-        }
-      });
-    };
-    const fetchData2 = async () => {
-      crud.getDataSlots().then((res) => {
-        console.log("Running Get SLOTS");
-        console.log(res);
-        if (res.message === "No Data") {
-          console.log("Data SLots Local Kosong");
-        } else {
-          console.log("Set Slot");
-          setSyncSlot(true);
-          setOverlay(false);
-          setItemSlots(res.results.data);
-        }
-      });
-    };
-    if (!isSyncSlot) {
-      fetchData();
-    }
-  });
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     setOverlay(true);
+  //     crud.getDataBannersImage().then((res) => {
+  //       console.log(res);
+  //       if (res.message === "No Data") {
+  //         console.log("DATA BANNERS KOSONG");
+  //       } else {
+  //         setItemBannersImage(res.results.data);
+  //         fetchData2();
+  //       }
+  //     });
+  //   };
+  //   const fetchData2 = async () => {
+  //     crud.getDataSlots().then((res) => {
+  //       console.log("Running Get SLOTS");
+  //       console.log(res);
+  //       if (res.message === "No Data") {
+  //         console.log("Data SLots Local Kosong");
+  //       } else {
+  //         console.log("Set Slot");
+  //         setSyncSlot(true);
+  //         setOverlay(false);
+  //         setItemSlots(res.results.data);
+  //       }
+  //     });
+  //   };
+  //   if (!isSyncSlot) {
+  //     fetchData();
+  //   }
+  // });
   const addTransaction = (item, tambah) => {
     console.log(itemBannersImage);
     const existItem = transactions.find(
